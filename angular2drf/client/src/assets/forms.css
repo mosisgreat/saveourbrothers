@@ -1,0 +1,31 @@
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.panel-heading {
+    padding: 0 15px !important;
+}
+
+/* for payment card form */
+.credit-card-box .display-table {
+    display: table;
+    padding: 10px 15px !important;
+}
+
+.credit-card-box .display-tr {
+    display: table-row;
+}
+
+.credit-card-box .display-td {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+.credit-card-box .panel-title {
+    /*display: inline;*/
+    font-weight: bold;
+}

@@ -1,0 +1,25 @@
+<div *ngIf="seeker">
+
+<ul>
+  <li>{{ seeker.url }}  <br/>
+    - {{ seeker.description }}  <br/>
+    - {{ seeker.photo }}<br/>
+    - {{ seeker.user }} <br/>
+    - {{ seeker.raised_amount }} <br/>
+    - {{ seeker.deadline | date : format : timezone }} 
+      <address *ngFor="let addess of seeker.addresses"> 
+        {{ addess.region }} - {{ addess.city }} - {{ addess.flat }}
+      </address> 
+      <progress-bar [progress]="calculatePercent(seeker)" [color]="'#488aff'"></progress-bar>
+  </li>
+</ul>
+  <!--h2>{{hero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{hero.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="hero.name" placeholder="name"/>
+    </label>
+  </div>
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button-->
+</div>

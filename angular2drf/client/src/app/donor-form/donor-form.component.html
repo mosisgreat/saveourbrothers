@@ -1,0 +1,118 @@
+<div class="container">
+
+	<form [formGroup]="donorForm" (ngSubmit)="onSubmit()">
+
+		<div formGroupName="user">
+		  <h3>Créer un compte</h3>
+
+	      <div class="form-group">
+				<label for="usename">Nom d'utilisateur</label>
+				<input type="text" class="form-control" id="usename" formControlName="username" required>
+			    <small class="help-block">Requis. 150 caractères maximum. Uniquement des lettres, nombres et les caractères « @ », « . », « + », « - » et « _ ».</small>
+				<div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+		  </div>
+
+
+	      <!--div class="form-group">
+			  <label for="firstname">Prénom</label>
+			  <input type="text" class="form-control" id="firstname" formControlName="first_name" required>
+		  </div>
+
+	      <div class="form-group">
+			  <label for="lastname">Nom</label>
+			  <input type="text" class="form-control" id="lastname" formControlName="last_name" required>
+		  </div-->
+
+	      <div class="form-group">
+			  <label for="eamil">Email</label>
+			  <input type="text" class="form-control" id="email" formControlName="email" required>
+		  </div>
+
+	      <div class="form-group">
+			  <label for="password">Mot de passe</label>
+			  <input type="password" class="form-control" id="password" formControlName="password" required>
+		  </div>
+
+		</div>
+
+		<div class="form-group">
+		  <label for="phone">Téléphone</label>
+		  <input type="text" class="form-control" id="phone" formControlName="phone" required>
+		</div>
+
+		<button  class="btn btn-primary" type="submit" [disabled]="!donorForm.valid">Submit</button>
+		<!--label>
+			Last Name:
+			<input type="text" formControlName="lastName">
+		</label-->
+	</form>
+
+	{{ diagnostic }}
+</div>
+<!--{{diagnostic}} #spy onSubmit addDonor(donorForm)-->
+<!--div class="container">
+	<alert type="success">
+	  <strong>Well done!</strong> You successfully read this important alert message.
+	</alert>
+	
+    <h1>Donor Subscription Form</h1>
+    <form (ngSubmit)="onSubmit()" #donorForm="ngForm">
+     
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" class="form-control" id="name" required minlength="8"
+        	 [(ngModel)]="model.full_name" name="full_name"
+        	 #name="ngModel"
+        >
+        <div [hidden]="name.valid || name.pristine"
+		     class="alert alert-danger">
+		  	Name is required
+		</div>
+      </div>
+    	
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input  class="form-control" id="email" [(ngModel)]="model.email" name="email" required email #email="ngModel" >
+
+		<div *ngIf="email.invalid && (email.dirty || email.touched)"
+		class="alert alert-danger">
+			<div *ngIf="email.errors.required">
+				Email est obligatoire.
+			</div>
+			<div *ngIf="email.errors?.email">
+				Adresse Email est incorrecte!.
+			</div>
+		</div>
+ 
+      </div>
+ 
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" id="phone" [(ngModel)]="model.phone" name="phone" required>
+      </div>
+ 
+		<div class="form-group">
+		  <label for="donor_type">Type Donneur</label>
+		  <select class="form-control" id="donor_type" 
+		  	[(ngModel)]="model.type" name="type" required>
+		    <option *ngFor="let donor_type of types" [value]="donor_type">{{donor_type}}</option>
+		  </select>
+		</div>
+		 
+      <button type="submit" class="btn btn-success"
+      	[disabled]="!donorForm.form.valid">Submit</button>
+ 
+    </form>
+ </div-->
+
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Open modal</button>
+<br><br>
+<pre class="card card-block card-header">{{message}}</pre>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to confirm?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>
+

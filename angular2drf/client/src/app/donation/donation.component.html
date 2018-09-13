@@ -1,0 +1,272 @@
+
+<div *ngIf="seeker" class="container">
+	<div class="row page">
+		<div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+                <li class="breadcrumb-item"><a routerLink="/patients">Patients</a></li>
+                <li class="breadcrumb-item active">
+                	{{ seeker.user.first_name }}&nbsp;{{ seeker.user.last_name }}
+                </li>
+			</ol>
+			<h1>Donation</h1>
+		</div>
+
+		<div class="col-md-9">
+
+			<form action="#" class="donate" method="post" accept-charset="utf-8">
+				<ul class="donation-projets">
+					<li>
+						<div class="row">
+							<div class="col-sm-9">
+								<img class="thumb" src="{{ seeker.photo }}" width="80" height="60">
+								<h4>{{ seeker.user.first_name }}&nbsp;{{ seeker.user.last_name }} !</h4>
+								<span *ngFor="let addess of seeker.addresses">
+									{{ addess.region | uppercase }}, Senegal
+								</span><br>
+								<span class="donation-total">
+								{{ seeker.target_amount | number:'':'fr' }}&nbsp;FCFA&nbsp;pour&nbsp;objectif
+								</span>
+								<br class="clear">
+								<div [innerHTML]="getDescription(seeker)"></div>
+							</div>
+							<div class="col-sm-3"  style="padding-bottom: 30px;">
+
+								<div class="input-group">
+						          <span class="input-group-btn">
+						              <button (click)="decreasePatientAmount()" type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant">
+						                  <span class="glyphicon glyphicon-minus"></span>
+						              </button>
+						          </span>
+
+						          <span>
+						          	<input #patientInput (keyup)="updateChangedDonation(patientInput.value,0)" type="text" name="quant" class="form-control input-number text-center" value="{{ patient_amount }}" (keypress)="numberOnly($event)" style="font-size: 1.3em; font-weight: bold;">
+					      		  </span>
+
+						          <span class="input-group-btn">
+						              <button (click)="increasePatientAmount()" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant">
+						                  <span class="glyphicon glyphicon-plus"></span>
+						              </button>
+						          </span>
+						      	</div>
+
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="row">
+							<div class="col-sm-9">
+								<img class="thumb" src="https://www.ecofund.org/upload/images/cache/project/1/80x60/ecofund.jpg">
+								<h4>Les Grands&nbsp;Coeurs</h4>
+								<p>Aider l'&eacute;quipe de grands coeurs à soutenir les personnes malades et à maintenir le developpement et la maintenance de ce logiciel. !</p>
+							</div>
+							<div class="col-sm-3" style="padding-bottom: 30px;">
+								<div class="input-group">
+						          <span class="input-group-btn">
+						              <button (click)="decreaseOrganismAmount()" type="button" class="btn btn-default btn-number " data-type="minus" data-field="quant">
+						                  <span class="glyphicon glyphicon-minus"></span>
+						              </button>
+						          </span>
+
+						          <span>
+						          	<input #organismInput (keyup)="updateChangedDonation(organismInput.value,1)" type="text" name="quant" class="form-control input-number text-center" value="{{ organism_amount }}" style="font-size: 1.3em; font-weight: bold;"/>
+					      		  </span>
+
+						          <span class="input-group-btn">
+						              <button (click)="increaseOrganismAmount()" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant">
+						                  <span class="glyphicon glyphicon-plus"></span>
+						              </button>
+						          </span>
+						      	</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+
+				<div class="row">
+					<div class="col-xs-8">
+						<h3>Montant&nbsp;Total&nbsp;:</h3>
+					</div>
+					<div class="col-xs-4" id="total-amount">
+						<h3 style="color: #000!important;">{{ total_amount | number:'':'fr' }}</h3> FCFA
+					</div>
+				</div>
+				<hr>
+			</form>
+
+			<div class="row" *ngIf="!_userService.token">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" placeholder="Nom d'utilisateur" type="text" name="login-username" [(ngModel)]="user.username">
+					</div>
+					<div class="alert alert-danger" *ngFor="let error of _userService.errors.username">
+					{{ error }}
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div class="form-group">
+						<input class="form-control" placeholder="Mot de passe" type="password" name="login-password" [(ngModel)]="user.password">
+					</div>
+					<div class="alert alert-danger" *ngFor="let error of _userService.errors.password">
+						{{ error }}
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div class="form-group">
+						<button (click)="login()" class="form-control btn btn-success">
+							Connexion
+						</button>
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div class="form-group">
+						<a routerLink="/subscribe" class="form-control btn btn-primary">			Cr&eacute;er&nbsp;mon&nbsp;compte
+						</a>
+					</div>
+				</div>
+			 
+				<div class="col-sm-12">
+					<div class="alert alert-danger alert-dismissible fade in" *ngFor="let error of _userService.errors.non_field_errors">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<strong>Erreur!&nbsp;</strong>
+						{{ error }}
+					</div>
+				</div>
+			</div>
+			
+			<div class="row" *ngIf="_userService.token">
+				<div class="col-sm-6">
+					<p>Bonjour Mosis, voici les informations relatives à votre don:</p>
+					<ul class="user-info" style="display: block;">
+						<li><label>Nom :</label>Thiaw</li>
+						<li><label>Prénom :</label>Mosis</li>
+						<li><label>Email :</label>mosis@live.fr</li>
+						<li><label>
+								<i class="fa fa-check"></i> J'accepte les 
+								<a style="color: #000" href="fr/conditions-dutilisation.html" target="_blank">
+									conditions d'utilisation de Grand Coeur.
+								</a>
+							</label>
+						</li>
+						<li><label><i class="fa fa-times"></i> Je ne suis pas abonné à la newsletter</label></li>
+						<li><a style="color: #000" class="show-form">Mettre à jour</a>&nbsp;&nbsp;&nbsp;
+							<a style="color: #000" href="https://www.ecofund.org/changeuser.html">Changer d'utilisateur</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6">
+					
+
+					<!-- CREDIT CARD FORM STARTS HERE -->
+					<div class="panel panel-default credit-card-box">
+					<div class="panel-heading display-table" >
+					<div class="row display-tr" >
+					<h3 class="panel-title display-td" >Payment Details</h3>
+					<div class="display-td" >                            
+					<img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+					</div>
+					</div>                    
+					</div>
+					<div class="panel-body">
+					<form role="form" id="payment-form">
+					<div class="row">
+					<div class="col-xs-12">
+					<div class="form-group">
+					<label for="cardNumber">CARD NUMBER</label>
+					<div class="input-group">
+					<input 
+					type="tel"
+					class="form-control"
+					name="cardNumber"
+					placeholder="Valid Card Number"
+					autocomplete="cc-number"
+					required autofocus 
+					/>
+					<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+					</div>
+					</div>                            
+					</div>
+					</div>
+					<div class="row">
+					<div class="col-xs-7 col-md-7">
+					<div class="form-group">
+					<label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+					<input 
+					type="tel" 
+					class="form-control" 
+					name="cardExpiry"
+					placeholder="MM / YY"
+					autocomplete="cc-exp"
+					required 
+					/>
+					</div>
+					</div>
+					<div class="col-xs-5 col-md-5 pull-right">
+					<div class="form-group">
+					<label for="cardCVC">CV CODE</label>
+					<input 
+					type="tel" 
+					class="form-control"
+					name="cardCVC"
+					placeholder="CVC"
+					autocomplete="cc-csc"
+					required
+					/>
+					</div>
+					</div>
+					</div>
+					<!--div class="row">
+					<div class="col-xs-12">
+					<div class="form-group">
+					<label for="couponCode">COUPON CODE</label>
+					<input type="text" class="form-control" name="couponCode" />
+					</div>
+					</div>                        
+					</div-->
+					<div class="row">
+					<div class="col-xs-12">
+					<button class="btn btn-success btn-lg btn-block" type="submit">Valider Mon Don</button>
+					</div>
+					</div>
+					<div class="row" style="display:none;">
+					<div class="col-xs-12">
+					<p class="payment-errors"></p>
+					</div>
+					</div>
+					</form>
+					</div>
+					</div>            
+					<!-- CREDIT CARD FORM ENDS HERE -->
+
+
+
+
+				</div>
+			<div>
+
+		<div>
+
+		<!-- aside block-->
+		<div class="col-md-3"></div>	
+	</div>	
+</div>
+<!--p *ngIf="seeker">
+	{{ seeker.user.first_name }}
+	{{ seeker.target_amount }}
+	Service token: {{ _userService.token }}
+</p-->
+
+
+
+<!--form action="https://www.ecofund.org/fr/don/casamance-ecoparc-iii.html" class="user-info" style="display: none;" method="post" accept-charset="utf-8">
+	<input name="action" value="updateuser" type="hidden">
+	<input name="amount" value="5" type="hidden">
+	<input name="ecofund_amount" value="1" type="hidden">
+	<input name="user_id" value="473" type="hidden">
+	<input name="is_terms" value="1" type="hidden">
+	<label>Nom :</label>
+	<input name="name" value="Thiaw" type="text"><br><label>Prénom :</label><input name="firstname" value="Mosis" type="text"><br><label>Email :</label><input name="email" value="mosis@live.fr" type="text"><br><input id="subscriber" name="is_subscriber" type="checkbox"><label for="subscriber">Je suis abonné à la newsletter</label><br><a class="button cancel-button show-form">Retour</a><input value="Enregistrer" type="submit"></form-->

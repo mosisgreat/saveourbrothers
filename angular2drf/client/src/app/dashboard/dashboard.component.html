@@ -1,0 +1,83 @@
+<!--ul>
+  <li *ngFor="let seeker of patients">{{ seeker.url }} <br/>
+    - {{ seeker.description }}  <br/>
+    - {{ seeker.photo }}<br/>
+    - {{ seeker.user }} <br/>
+    - {{ seeker.raised_amount }}<br/> 
+      <address *ngFor="let addess of seeker.addresses"> 
+        {{ addess.region }} - {{ addess.city }} - {{ addess.flat }}
+      </address> 
+  </li>
+</ul-->
+
+<div class="container">
+	<div class="row page">
+		<div class="col-md-9">
+			<div *ngFor="let seeker of patients">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-sm-8">
+								<a style="display: inline-block;" routerLink="/detail/{{ seeker.id }}">
+
+									<span>
+										<img style="width:8%; height:8%; padding: 1% 0; display: inline-block; margin-right: 10px;" src="../../assets/img/senegal.png">
+									</span>
+
+									<h3 style="vertical-align:bottom; display: inline-block; text-transform: capitalize; padding: auto; font-size: 1.5em;">
+										{{ seeker.user.first_name }} {{ seeker.user.last_name }},&nbsp;
+										<span style="text-transform: capitalize; font-size: 1em; " *ngFor="let addess of seeker.addresses">
+										{{ addess.region }}
+										</span> 
+									</h3>
+								</a>
+							</div>
+							<div class="col-sm-4">
+								<div class="deadline pull-right">
+									<i  class=" fa fa-clock" style="padding: 10% 0; display: inline-block; margin-right: 10px; font-size: 1.5em;">
+									</i>	
+									<span style="display: inline-block; font-size: 1.5em;">
+										{{ seeker.deadline | date : format : timezone : 'fr'}}
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				    <div class="panel-body">
+				    	<div class="row">
+							<div class="col-lg-4 col-sm-5">
+								<a routerLink="/detail/{{ seeker.id }}">
+									<img src="{{ seeker.photo }}" title="{{ seeker.user.first_name | uppercase }} {{ seeker.user.last_name | uppercase }}" class="img-rounded img-responsive">
+								</a>
+							</div>
+							<div class="col-lg-8 col-sm-7" style="border: 1px solid #eee; padding: 5px;border-radius:4px">
+								<a style="display: inline-block" routerLink="/detail/{{ seeker.id }}"> 
+									<div [innerHTML]="getDescription(seeker)"></div>
+								</a>
+
+								<div class="row" style="margin-top: -10px">
+									<div class="col-md-4 col-sm-4">
+										<h2 style="margin-bottom: 1px">{{ seeker.raised_amount | number:'':'fr' }}&nbsp;FCFA</h2>
+										sur {{ seeker.target_amount | number:'':'fr' }}&nbsp;FCFA
+									</div>
+									<div class="col-lg-4 col-md-5 col-sm-4" style="padding-top: 10px;">
+										<div class="donation-progress-bar">
+											<progress-bar [progress]="calculatePercent(seeker)" [color]="'#488aff'"></progress-bar>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-3 col-sm-4">
+										<a style="text-transform: uppercase; display: block; margin-top: 20px; border-radius: 0px !important" class="btn btn-success btn-block" routerLink="/donation/{{ seeker.id }}/{{ seeker.user.first_name }}">Donner&nbsp;à&nbsp;{{ seeker.user.first_name }}</a>
+									</div>
+								</div>
+							</div>
+						</div>
+				  	</div>
+				</div>
+			</div>
+		</div>
+		<!-- aside block-->
+		<div class="col-md-3">
+			
+		</div>	
+	</div>	
+</div>	

@@ -1,0 +1,49 @@
+# ========================== Angular Django Authentication ==================================
+https://www.metaltoad.com/blog/angular-api-calls-django-authentication-jwt
+
+
+# =====================================================================================================
+https://stackoverflow.com/questions/33086416/403-error-with-angular-js-post-and-django-rest-framework 
+solved 403 access error from the frontend/
+{"detail":"Authentication credentials were not provided."}
+=====================================================================================================
+
+
+http://jasonwatmore.com/post/2018/05/11/angular-6-template-driven-forms-validation-example
+
+# ==================================================================================================
+https://www.vinta.com.br/blog/2018/django-rest-framework-read-write-serializers/
+
+# ======================================== progress bar ==========================================
+https://www.npmjs.com/package/angular-progress-bar
+
+#========================================= Deployment with virtualenv django ====================
+https://www.thecodeship.com/deployment/deploy-django-apache-virtualenv-and-mod_wsgi/
+
+# ================================= GET IMAGE FILES WELL CONFIGURED ============================
+https://gist.github.com/prodeveloper/7342dc1d3be6256c46a71730ce548db5
+
+#================================ Angular Bootstrap ===============================
+https://valor-software.com/ngx-bootstrap/#/pagination#content-switching
+
+# ========================= Social login ============================
+https://www.npmjs.com/package/angular-6-social-login-v2
+
+# ======================= Django angular user authentication ==================
+https://www.metaltoad.com/blog/angular-api-calls-django-authentication-jwt
+
+
+
+# ==================== Reactive forms validation ============================
+https://loiane.com/2017/08/angular-reactive-forms-trigger-validation-on-submit/
+
+# ===============================
+https://www.npmjs.com/package/angular-payments
+
+
+# ================================== Migs MasterCard One Page Payment ==========
+https://ap-gateway.mastercard.com/api/documentation/integrationGuidelines/hostedCheckout/integrationModelHostedCheckout.html
+
+https://www.devglan.com/angular/payumoney-integration-angular
+
+https://github.com/senoskoala/python-migs
